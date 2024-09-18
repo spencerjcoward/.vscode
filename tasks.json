@@ -1,0 +1,36 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558 
+    // for the documentation about the tasks.json format
+    // VERY VERY INCOMPLETE AT THIS POINT!
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "devtool build-image core-image-minimal",
+            "type": "process",
+            "command": ".",
+            "args": [
+                "oe-init-build-env",
+                "&&",
+                "devtool",
+                "build-image",
+                "core-image-minimal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build ",
+            "type": "process",
+            "command": "make",
+            "args": [
+                ""
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+    ],
+}

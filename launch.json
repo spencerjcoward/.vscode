@@ -1,0 +1,56 @@
+{
+    /*
+     * Requires the Cortex-Debug extensions
+     * https://marketplace.visualstudio.com/items?itemName=webfreak.debug
+     * https://marketplace.visualstudio.com/items?itemName=mcu-debug.memory-view
+     */
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "A53 Debug(openOCD)",
+            "type": "gdb",
+            "request": "attach",
+            // The cwd for debug sessions is the top of my source tree.
+            "cwd": "${workspaceRoot}",
+            // Path from {workspaceRoot} to your ELF file it might be placed elsewhere.
+            "executable": "${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot",
+            // I this example the author develops on a Linux machine (Linux Server in a data center not locally on a laptop)
+            // The physical target is local to the laptop via USB
+            // And - OpenOCD is launched locally on the laptop via a batch file specific to the board & laptop or lab-computer
+            // Thus VS CODE does not launch OpenOCD, and the servertype is "external", not "openocd"
+            "target": "localhost:3334",
+            "remote": true,
+            "gdbpath": "/usr/bin/gdb-multiarch",
+            "autorun": [
+                // need to substitute the path to the source code because the debug info has a funky path
+                "set substitute-path /usr/src/debug/u-boot-beagleplay-dev/2024.10-rc1+git/ ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/git",
+                // "target record-full", // not working at the moment
+                // "add-symbol-file ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot",
+                "add-symbol-file ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot 0x00000000ffecf000",
+                "enable breakpoint",
+            ],
+        }
+        // fixmesjc need to fix when we need to actually debug r5, see above as reference
+        // ,
+        // {
+        //     "name": "R5 Debug(openOCD)",
+        //     "type": "gdb",
+        //     "request": "attach",
+        //     // The cwd for debug sessions is the top of my source tree.
+        //     "cwd": "${workspaceRoot}",
+        //     // Path from {workspaceRoot} to your ELF file it might be placed elsewhere.
+        //     "executable": "../build/u-boot/r5/u-boot",
+        //     // I this example the author develops on a Linux machine (Linux Server in a data center not locally on a laptop)
+        //     // The physical target is local to the laptop via USB
+        //     // And - OpenOCD is launched locally on the laptop via a batch file specific to the board & laptop or lab-computer
+        //     // Thus VS CODE does not launch OpenOCD, and the servertype is "external", not "openocd"
+        //     "target": "localhost:3338",
+        //     "remote": true,
+        //     "gdbpath": "/usr/bin/gdb-multiarch",
+        //     "autorun": [
+        //         "add-symbol-file ../build/u-boot/r5/u-boot",
+        //         "enable breakpoint",
+        //     ],
+        // }
+    ]
+}
