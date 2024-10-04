@@ -13,7 +13,7 @@
             // The cwd for debug sessions is the top of my source tree.
             "cwd": "${workspaceRoot}",
             // Path from {workspaceRoot} to your ELF file it might be placed elsewhere.
-            "executable": "${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot",
+            "executable": "${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/u-boot-beagleplay-dev-2024.10-rc1+git/u-boot",
             // I this example the author develops on a Linux machine (Linux Server in a data center not locally on a laptop)
             // The physical target is local to the laptop via USB
             // And - OpenOCD is launched locally on the laptop via a batch file specific to the board & laptop or lab-computer
@@ -23,10 +23,12 @@
             "gdbpath": "/usr/bin/gdb-multiarch",
             "autorun": [
                 // need to substitute the path to the source code because the debug info has a funky path
-                "set substitute-path /usr/src/debug/u-boot-beagleplay-dev/2024.10-rc1+git/ ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/git",
+                // set substitute-path /usr/src/debug/u-boot-beagleplay-dev/2024.10-rc1+git/ /home/scoward/sjc/github/spencerjcoward/beagleplay-dev/workspace/sources/u-boot-beagleplay-dev/workspace/sources/u-boot-beagleplay-dev
+                "set substitute-path /usr/src/debug/u-boot-beagleplay-dev/2024.10-rc1+git/ ${workspaceRoot}/workspace/sources/u-boot-beagleplay-dev",
                 // "target record-full", // not working at the moment
                 // "add-symbol-file ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot",
-                "add-symbol-file ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot 0x00000000ffecf000",
+                // add-symbol-file /home/scoward/sjc/github/spencerjcoward/beagleplay-dev/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/build/u-boot 0x00000000ffea6000
+                "add-symbol-file ${workspaceRoot}/tmp-glibc/work/beagleplay_dev-oe-linux/u-boot-beagleplay-dev/2024.10-rc1+git/u-boot-beagleplay-dev-2024.10-rc1+git/u-boot 0x00000000ffea6000",
                 "enable breakpoint",
             ],
         }
